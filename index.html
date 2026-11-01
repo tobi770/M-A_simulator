@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&A Valuation & Tax Simulator | 企業価値・手取り額シミュレーター</title>
+    <meta name="description" content="M&A実務で標準的な「EV/EBITDA倍率法」および「年買法」に対応。想定株価（株式価値）の算定から、役員退職金を活用したオーナー手取り額の最大化シミュレーションまで30秒で試算。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8fafc; color: #0f172a; }
+        .hero-pattern {
+            background: radial-gradient(circle at 20% 20%, #1e3a8a 0%, #0f172a 55%, #020617 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 6px -2px rgba(15, 23, 42, 0.025);
+        }
+        .input-group:focus-within label { color: #2563eb; }
+        .input-field {
+            transition: all 0.2s ease;
+        }
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 999px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #0f172a;
+            border: 3px solid #f59e0b;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -7px;
+            transition: transform 0.15s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        .tab-active {
+            background-color: #0f172a;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500 selection:text-white">
+
+    <!-- ヒーローヘッダー -->
+    <header class="hero-pattern text-white pt-10 pb-20 px-4 relative overflow-hidden">
+        <!-- 装飾用背景エフェクト -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-500 opacity-10 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-amber-500 opacity-10 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/15 px-3 py-1 rounded-full text-xs font-semibold text-amber-400 mb-3">
+                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        M&A 実務標準モデル（EV/EBITDA法・年買法）搭載
+                    </div>
+                    <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight leading-tight">
+                        企業価値（株価）＆オーナー手取り額<br class="hidden sm:inline">シミュレーター
+                    </h1>
+                </div>
+                <div class="text-xs md:text-sm text-slate-300 max-w-md border-l-2 border-amber-500/60 pl-4 py-1">
+                    決算書の主要数値から、実務で最も使われる<strong>「EV/EBITDA倍率法」</strong>で株式価値を算出。さらに役員退職金を活用した<strong>手取り最大化スキーム</strong>を瞬時に比較します。
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="max-w-6xl mx-auto px-4 -mt-12 relative z-20 pb-16">
+        <div class="grid lg:grid-cols-12 gap-8">
+
+            <!-- 左カラム：入力パネル（5カラム） -->
+            <div class="lg:col-span-5 space-y-6">
+                
+                <!-- ステップ1：財務数値の入力 -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+                        <div class="flex items-center gap-2.5">
+                            <span class="bg-navy-900 text-amber-400 font-bold rounded-lg w-7 h-7 inline-flex items-center justify-center text-sm shadow-sm">01</span>
+                            <h2 class="font-bold text-slate-900 text-base">PL / BS 財務データの入力</h2>
+                        </div>
+                        <span class="text-[11px] font-medium text-slate-400 bg-slate-100 px-2 py-0.5 rounded">単位：万円</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- 営業利益 + 減価償却費 (EBITDA) -->
+                        <div class="p-3.5 bg-slate-50/80 rounded-xl border border-slate-200/70 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">収益力（EBITDAの算出）</span>
+                                <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                                    実質EBITDA: <span id="lblEbitda">3,500</span>万円
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="input-group">
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">実質営業利益</label>
+                                    <div class="relative">
+                                        <input type="number" id="opProfit" value="3000" step="100" class="input-field w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-right pr-9 font-bold text-slate-900 focus:outline-none focus:border-blue-600" oninput="calculate()">
+                                        <span class="absolute right-2.5 top-2 text-slate-400 text-xs">万</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">減価償却費</label>
+                                    <div class="relative">
+                                        <input type="number" id="depreciation" value="500" step="50" class="input-field w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-right pr-9 font-bold text-slate-900 focus:outline-none focus:border-blue-600" oninput="calculate()">
+                                        <span class="absolute right-2.5 top-2 text-slate-400 text-xs">万</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-[11px] text-slate-400 leading-normal">※オーナー役員報酬の適正引き直し後、および私的経費（節税保険・交際費等）を加算した「正常収益力」を入力してください。</p>
+                        </div>
+
+                        <!-- 現預金 & 有利子負債 (Net Debt) -->
+                        <div class="p-3.5 bg-slate-50/80 rounded-xl border border-slate-200/70 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">キャッシュ・負債（EV/EBITDA法用）</span>
+                                <span id="lblNetDebtBadge" class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                    ネットキャッシュ: +3,000万円
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="input-group">
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">現預金（余剰資産含）</label>
+                                    <div class="relative">
+                                        <input type="number" id="cash" value="8000" step="100" class="input-field w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-right pr-9 font-bold text-slate-900 focus:outline-none focus:border-blue-600" oninput="calculate()">
+                                        <span class="absolute right-2.5 top-2 text-slate-400 text-xs">万</span>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">有利子負債（借入金）</label>
+                                    <div class="relative">
+                                        <input type="number" id="debt" value="5000" step="100" class="input-field w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-right pr-9 font-bold text-slate-900 focus:outline-none focus:border-blue-600" oninput="calculate()">
+                                        <span class="absolute right-2.5 top-2 text-slate-400 text-xs">万</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 時価純資産（年買法用） -->
+                        <div class="input-group px-1">
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-semibold text-slate-600">時価純資産（資産 － 負債）</label>
+                                <span class="text-[10px] text-slate-400">※年買法での比較に使用</span>
+                            </div>
+                            <div class="relative">
+                                <input type="number" id="netAssets" value="7000" step="100" class="input-field w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-right pr-12 font-bold text-slate-900 focus:outline-none focus:border-blue-600" oninput="calculate()">
+                                <span class="absolute right-3 top-2 text-slate-400 text-xs">万円</span>
+                            </div>
+                        </div>
+
+                        <!-- マルチプル（評価倍率）スライダー -->
+                        <div class="pt-3 border-t border-slate-100 px-1">
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-bold text-slate-700">適用マルチプル（EBITDA倍率）</label>
+                                <span class="text-lg font-extrabold text-navy-900 bg-amber-400/20 border border-amber-400 px-2.5 py-0.5 rounded-lg">
+                                    <span id="lblMultiple">5.0</span> <span class="text-xs font-bold">倍</span>
+                                </span>
+                            </div>
+                            <input type="range" id="multiple" min="2.0" max="8.0" step="0.5" value="5.0" class="w-full" oninput="calculate()">
+                            <div class="flex justify-between text-[10px] text-slate-400 font-medium mt-1">
+                                <span>2.0x (小規模/縮小)</span>
+                                <span>5.0x (中堅・標準目安)</span>
+                                <span>8.0x (高成長/IT等)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ステップ2：退職金・税務スキーム条件 -->
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="flex items-center gap-2.5 border-b border-slate-100 pb-4 mb-4">
+                        <span class="bg-navy-900 text-amber-400 font-bold rounded-lg w-7 h-7 inline-flex items-center justify-center text-sm shadow-sm">02</span>
+                        <h2 class="font-bold text-slate-900 text-base">オーナー退職金・手取り試算条件</h2>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="input-group">
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">役員在任年数</label>
+                            <div class="relative">
+                                <input type="number" id="tenure" value="20" min="1" max="60" class="input-field w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-right pr-9 font-bold text-slate-900 focus:outline-none focus:border-blue-600" oninput="calculate()">
+                                <span class="absolute right-3 top-2 text-slate-400 text-xs">年</span>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-1">非課税枠: <strong id="lblDeduction" class="text-slate-600">800</strong>万円</p>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">役員退職金の支給額</label>
+                            <div class="relative">
+                                <input type="number" id="severance" value="3500" step="100" class="input-field w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-right pr-10 font-bold text-slate-900 focus:outline-none focus:border-blue-600" oninput="calculate()">
+                                <span class="absolute right-2.5 top-2 text-slate-400 text-xs">万円</span>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-1">譲渡対価の一部を退職金化</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 右カラム：計算結果ダッシュボード（7カラム） -->
+            <div class="lg:col-span-7 space-y-6">
+
+                <!-- 1. 株価算定メインカード（タブ切替つき） -->
+                <div class="glass-card rounded-2xl p-6 md:p-7">
+                    <!-- 評価手法の切替タブ -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 mb-6">
+                        <div>
+                            <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider block">Valuation Method</span>
+                            <h2 class="text-lg font-extrabold text-slate-900">推計株式価値（100%譲渡対価）</h2>
+                        </div>
+                        <div class="inline-flex bg-slate-100 p-1 rounded-xl border border-slate-200">
+                            <button type="button" id="btnEv" onclick="setMethod('ev')" class="tab-active text-xs font-bold px-3.5 py-2 rounded-lg transition-all">
+                                EV/EBITDA倍率法 <span class="text-[10px] bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded ml-1 font-extrabold">実務標準</span>
+                            </button>
+                            <button type="button" id="btnNenkai" onclick="setMethod('nenkai')" class="text-slate-600 hover:text-slate-900 text-xs font-bold px-3.5 py-2 rounded-lg transition-all">
+                                年買法（時価純資産＋のれん）
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- メインの株価表示ボックス -->
+                    <div class="bg-gradient-to-br from-navy-900 via-navy-800 to-slate-900 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                            <div>
+                                <p id="methodFormulaText" class="text-xs text-slate-300 font-medium mb-1">
+                                    算定式：事業価値 EV（EBITDA × 倍率）＋ 現預金 － 有利子負債
+                                </p>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="resEquityValue" class="text-4xl md:text-5xl font-extrabold text-amber-400 tracking-tight">20,500</span>
+                                    <span class="text-lg font-bold text-white">万円</span>
+                                    <span id="resOkuText" class="text-xs text-slate-300 ml-1">（約 2.05 億円）</span>
+                                </div>
+                            </div>
+                            <!-- もう一方の算定法での参考値 -->
+                            <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl px-3.5 py-2 text-right">
+                                <span id="subMethodLabel" class="text-[11px] text-slate-300 block">参考：年買法での試算額</span>
+                                <span class="text-sm font-bold text-white"><span id="subMethodValue">24,500</span> 万円</span>
+                            </div>
+                        </div>
+
+                        <!-- 内訳ブリッジ（EV/EBITDA用） -->
+                        <div id="breakdownEv" class="mt-6 pt-5 border-t border-white/10 grid grid-cols-3 gap-2 text-center">
+                            <div class="bg-white/5 rounded-lg p-2.5">
+                                <span class="text-[11px] text-slate-400 block">① 事業価値 (EV)</span>
+                                <span class="text-sm md:text-base font-bold text-white mt-0.5 block"><span id="valEv">17,500</span><span class="text-xs font-normal text-slate-300 ml-0.5">万円</span></span>
+                                <span class="text-[10px] text-amber-400/90 block mt-0.5">EBITDA × <span id="valMult1">5.0</span>倍</span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-2.5">
+                                <span class="text-[11px] text-slate-400 block">② 現預金 (+)</span>
+                                <span class="text-sm md:text-base font-bold text-emerald-400 mt-0.5 block">+<span id="valCash">8,000</span><span class="text-xs font-normal text-slate-300 ml-0.5">万円</span></span>
+                                <span class="text-[10px] text-slate-400 block mt-0.5">株主価値へ加算</span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-2.5">
+                                <span class="text-[11px] text-slate-400 block">③ 有利子負債 (-)</span>
+                                <span class="text-sm md:text-base font-bold text-rose-400 mt-0.5 block">-<span id="valDebt">5,000</span><span class="text-xs font-normal text-slate-300 ml-0.5">万円</span></span>
+                                <span class="text-[10px] text-slate-400 block mt-0.5">EVから控除</span>
+                            </div>
+                        </div>
+
+                        <!-- 内訳ブリッジ（年買法用：初期非表示） -->
+                        <div id="breakdownNenkai" class="hidden mt-6 pt-5 border-t border-white/10 grid grid-cols-2 gap-3 text-center">
+                            <div class="bg-white/5 rounded-lg p-2.5">
+                                <span class="text-[11px] text-slate-400 block">① 時価純資産</span>
+                                <span class="text-sm md:text-base font-bold text-white mt-0.5 block"><span id="valNetAssets">7,000</span><span class="text-xs font-normal text-slate-300 ml-0.5">万円</span></span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-2.5">
+                                <span class="text-[11px] text-slate-400 block">② 営業権（のれん代）</span>
+                                <span class="text-sm md:text-base font-bold text-amber-400 mt-0.5 block">+<span id="valGoodwill">17,500</span><span class="text-xs font-normal text-slate-300 ml-0.5">万円</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. 手取り額＆節税スキーム比較カード -->
+                <div class="glass-card rounded-2xl p-6 md:p-7 border-2 border-amber-400/70 relative">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-[11px] font-bold text-amber-600 uppercase tracking-wider block">Net Proceeds Optimization</span>
+                            <h3 class="text-lg font-extrabold text-slate-900">オーナー最終手取り額の比較シミュレーション</h3>
+                        </div>
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-300">
+                            スキーム比較
+                        </span>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <!-- パターンA：単純な株式譲渡 -->
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-slate-500">パターンA：単純な株式譲渡</span>
+                                    <span class="text-[10px] bg-slate-200 text-slate-600 px-2 py-0.5 rounded font-semibold">全額 20.315% 課税</span>
+                                </div>
+                                <div class="mt-3 flex items-baseline gap-1">
+                                    <span class="text-xs text-slate-500 mr-1">手取り</span>
+                                    <span id="resNetSimple" class="text-2xl font-extrabold text-slate-700">16,335</span>
+                                    <span class="text-xs font-bold text-slate-600">万円</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-slate-200/80 flex justify-between text-xs">
+                                <span class="text-slate-400">譲渡所得税・住民税</span>
+                                <span class="font-bold text-rose-600">-<span id="resTaxSimple">4,165</span>万円</span>
+                            </div>
+                        </div>
+
+                        <!-- パターンB：株式譲渡＋役員退職金 -->
+                        <div class="bg-gradient-to-br from-blue-50/90 to-indigo-50/50 rounded-xl p-4 border-2 border-blue-600 relative shadow-sm flex flex-col justify-between">
+                            <span class="absolute -top-2.5 right-3 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">推奨スキーム</span>
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-blue-900">パターンB：株式譲渡＋役員退職金</span>
+                                </div>
+                                <div class="mt-3 flex items-baseline gap-1">
+                                    <span class="text-xs text-blue-800 mr-1 font-semibold">手取り</span>
+                                    <span id="resNetOptimal" class="text-3xl font-extrabold text-blue-950">16,657</span>
+                                    <span class="text-xs font-bold text-blue-900">万円</span>
+                                </div>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-blue-200/80 flex justify-between text-xs">
+                                <span class="text-blue-700/80">税金合計（株＋退職金）</span>
+                                <span class="font-bold text-blue-800">-<span id="resTaxOptimal">3,843</span>万円</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 節税インパクトのハイライトバー -->
+                    <div class="mt-4 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border border-amber-300/80 rounded-xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-2">
+                        <div class="flex items-center gap-2.5">
+                            <span class="bg-amber-500 text-white rounded-full w-6 h-6 inline-flex items-center justify-center font-bold text-xs shrink-0">!</span>
+                            <p class="text-xs md:text-sm font-bold text-slate-800">
+                                退職金スキームの活用により、最終手取り額が <span id="resDiff" class="text-lg md:text-xl font-extrabold text-rose-600 mx-1">+322</span> 万円 増加します
+                            </p>
+                        </div>
+                        <span class="text-[11px] text-slate-500 shrink-0">実効税率: <strong id="resEffectiveTaxRate" class="text-slate-700">18.7%</strong></span>
+                    </div>
+                </div>
+
+                <!-- 3. コンバージョン（アフィリエイト・リード獲得導線） -->
+                <div class="bg-navy-950 text-white rounded-2xl p-6 md:p-7 shadow-xl border border-slate-800 relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-amber-500 text-navy-950 text-[11px] font-extrabold px-2.5 py-0.5 rounded uppercase">Confidential Advisory</span>
+                            <span class="text-xs text-slate-400">秘密厳守・着手金完全無料</span>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-extrabold tracking-tight text-white">
+                            「実際の買い手がつけるプレミアム価格」と「最適な節税設計」を診断しませんか？
+                        </h3>
+                        <p class="text-xs md:text-sm text-slate-300 mt-2 leading-relaxed">
+                            EV/EBITDA倍率は、買い手企業とのシナジーや業界の再編動向によって<strong>5倍から7倍・8倍へと跳ね上がるケース</strong>が多々あります。また、役員退職金の適正額（功績倍率）は税務リスクを避けるため専門家の事前設計が不可欠です。
+                        </p>
+
+                        <!-- ★ここに高単価アフィリエイトリンクまたは自社フォームURLを設定★ -->
+                        <div class="mt-5">
+                            <a href="#affiliate-link-1" class="group w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-navy-950 font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-amber-500/20 flex items-center justify-between transition-all transform hover:-translate-y-0.5">
+                                <span class="text-sm md:text-base">無料で企業価値の詳細レポート・買い手候補リストを取り寄せる</span>
+                                <span class="bg-navy-950 text-amber-400 rounded-lg px-2.5 py-1 text-xs font-bold group-hover:translate-x-1 transition-transform">無料診断 &rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SEO & 専門解説セクション（検索流入・信頼性担保） -->
+        <section class="mt-12 glass-card rounded-2xl p-6 md:p-8 text-sm text-slate-600 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Valuation Methodology</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-0.5">なぜM&A実務では「EV/EBITDA倍率法」が最も使われるのか？</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 leading-relaxed">
+                <div class="space-y-2">
+                    <h3 class="font-bold text-slate-900 flex items-center gap-2">
+                        <span class="w-1.5 h-4 bg-blue-600 rounded-full"></span>
+                        1. EV/EBITDA倍率法の仕組み（実務のグローバルスタンダード）
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-600">
+                        M&Aの現場で買い手企業が最も重視するのは「その事業が毎年いくらのキャッシュを生み出すか（EBITDA＝営業利益＋減価償却費）」です。このEBITDAに業界水準の倍率（マルチプル）を掛けて<strong>事業価値（EV）</strong>を算出し、そこに<strong>現預金を足し、借入金（有利子負債）を引く</strong>ことで株主価値（株価）を算出します。無借金でキャッシュリッチな会社ほど株価が高く評価される合理的な手法です。
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="font-bold text-slate-900 flex items-center gap-2">
+                        <span class="w-1.5 h-4 bg-amber-500 rounded-full"></span>
+                        2. 役員退職金を活用した「手取り最大化スキーム」とは？
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-600">
+                        全額を「株式譲渡対価」として受け取ると一律<strong>20.315%</strong>の税金がかかります。一方、M&Aの最終契約に合わせて対象会社からオーナーへ「役員退職金」を支給し、その分だけ株式譲渡価格を引き下げるスキームを組むと、<strong>退職所得控除（勤続20年超で年70万円枠）</strong>と<strong>1/2課税</strong>が適用され、手取り額を数百万〜数千万円単位で増やせるケースがあります。
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-[11px] text-slate-400 border-t border-slate-100 pt-4">
+                【免責事項】本シミュレーターはM&Aにおける一般的な算定モデル（EV/EBITDA倍率法・年買法）および日本の税制に基づく概算試算ツールです。株式の取得費（資本金）は便宜上0円と仮定しています。役員退職金の損金算入限度額（功績倍率法等）や個別の税務判断については、必ず公認会計士・税理士・M&Aアドバイザー等の専門家にご相談ください。
+            </p>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-200/80 bg-white py-6 text-center text-xs text-slate-400">
+        &copy; 2026 M&A Valuation & Tax Simulator. All Rights Reserved.
+    </footer>
+
+    <!-- 計算・UI制御スクリプト -->
+    <script>
+        let currentMethod = 'ev'; // 'ev' or 'nenkai'
+
+        function setMethod(method) {
+            currentMethod = method;
+            const btnEv = document.getElementById('btnEv');
+            const btnNenkai = document.getElementById('btnNenkai');
+            const breakdownEv = document.getElementById('breakdownEv');
+            const breakdownNenkai = document.getElementById('breakdownNenkai');
+            const formulaText = document.getElementById('methodFormulaText');
+
+            if (method === 'ev') {
+                btnEv.className = "tab-active text-xs font-bold px-3.5 py-2 rounded-lg transition-all";
+                btnNenkai.className = "text-slate-600 hover:text-slate-900 text-xs font-bold px-3.5 py-2 rounded-lg transition-all";
+                breakdownEv.classList.remove('hidden');
+                breakdownNenkai.classList.add('hidden');
+                formulaText.innerText = "算定式：事業価値 EV（EBITDA × 倍率）＋ 現預金 － 有利子負債";
+            } else {
+                btnNenkai.className = "tab-active text-xs font-bold px-3.5 py-2 rounded-lg transition-all";
+                btnEv.className = "text-slate-600 hover:text-slate-900 text-xs font-bold px-3.5 py-2 rounded-lg transition-all";
+                breakdownNenkai.classList.remove('hidden');
+                breakdownEv.classList.add('hidden');
+                formulaText.innerText = "算定式：時価純資産 ＋ 営業権（EBITDA × 倍率）";
+            }
+            calculate();
+        }
+
+        function calcRetirementTax(incomeTaxable) {
+            if (incomeTaxable <= 0) return 0;
+            let incomeTax = 0;
+            if (incomeTaxable <= 195) incomeTax = incomeTaxable * 0.05;
+            else if (incomeTaxable <= 330) incomeTax = incomeTaxable * 0.10 - 9.75;
+            else if (incomeTaxable <= 695) incomeTax = incomeTaxable * 0.20 - 42.75;
+            else if (incomeTaxable <= 900) incomeTax = incomeTaxable * 0.23 - 63.6;
+            else if (incomeTaxable <= 1800) incomeTax = incomeTaxable * 0.33 - 153.6;
+            else if (incomeTaxable <= 4000) incomeTax = incomeTaxable * 0.40 - 279.6;
+            else incomeTax = incomeTaxable * 0.45 - 479.6;
+
+            const reconTax = incomeTax * 1.021; // 復興特別所得税
+            const resTax = incomeTaxable * 0.10; // 住民税10%
+            return reconTax + resTax;
+        }
+
+        function calculate() {
+            const opProfit = parseFloat(document.getElementById('opProfit').value) || 0;
+            const depreciation = parseFloat(document.getElementById('depreciation').value) || 0;
+            const cash = parseFloat(document.getElementById('cash').value) || 0;
+            const debt = parseFloat(document.getElementById('debt').value) || 0;
+            const netAssets = parseFloat(document.getElementById('netAssets').value) || 0;
+            const multiple = parseFloat(document.getElementById('multiple').value) || 5.0;
+            const tenure = parseInt(document.getElementById('tenure').value) || 1;
+            let severance = parseFloat(document.getElementById('severance').value) || 0;
+
+            // ラベル更新
+            const ebitda = Math.max(0, opProfit + depreciation);
+            document.getElementById('lblEbitda').innerText = Math.round(ebitda).toLocaleString();
+            document.getElementById('lblMultiple').innerText = multiple.toFixed(1);
+            document.getElementById('valMult1').innerText = multiple.toFixed(1);
+
+            const netCash = cash - debt;
+            const netDebtBadge = document.getElementById('lblNetDebtBadge');
+            if (netCash >= 0) {
+                netDebtBadge.innerText = `ネットキャッシュ: +${Math.round(netCash).toLocaleString()}万円`;
+                netDebtBadge.className = "text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200";
+            } else {
+                netDebtBadge.innerText = `ネットデット: ${Math.round(netCash).toLocaleString()}万円`;
+                netDebtBadge.className = "text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200";
+            }
+
+            // 1. EV/EBITDA倍率法による株式価値
+            const ev = ebitda * multiple;
+            const equityEvMethod = Math.max(0, ev + cash - debt);
+
+            // 2. 年買法による株式価値
+            const goodwill = ebitda * multiple;
+            const equityNenkaiMethod = Math.max(0, netAssets + goodwill);
+
+            // 選択されている手法をメイン値にセット
+            const activeEquityValue = (currentMethod === 'ev') ? equityEvMethod : equityNenkaiMethod;
+
+            // 内訳の反映
+            document.getElementById('valEv').innerText = Math.round(ev).toLocaleString();
+            document.getElementById('valCash').innerText = Math.round(cash).toLocaleString();
+            document.getElementById('valDebt').innerText = Math.round(debt).toLocaleString();
+            document.getElementById('valNetAssets').innerText = Math.round(netAssets).toLocaleString();
+            document.getElementById('valGoodwill').innerText = Math.round(goodwill).toLocaleString();
+
+            document.getElementById('resEquityValue').innerText = Math.round(activeEquityValue).toLocaleString();
+            document.getElementById('resOkuText').innerText = `（約 ${(activeEquityValue / 10000).toFixed(2)} 億円）`;
+
+            if (currentMethod === 'ev') {
+                document.getElementById('subMethodLabel').innerText = "参考：年買法での試算額";
+                document.getElementById('subMethodValue').innerText = Math.round(equityNenkaiMethod).toLocaleString();
+            } else {
+                document.getElementById('subMethodLabel').innerText = "参考：EV/EBITDA法での試算額";
+                document.getElementById('subMethodValue').innerText = Math.round(equityEvMethod).toLocaleString();
+            }
+
+            // 3. 税金・手取り計算
+            const actualSeverance = Math.min(Math.max(0, severance), activeEquityValue);
+
+            // パターンA：単純株式譲渡
+            const taxSimple = activeEquityValue * 0.20315;
+            const netSimple = activeEquityValue - taxSimple;
+
+            // パターンB：株式譲渡＋役員退職金
+            const stockProceeds = activeEquityValue - actualSeverance;
+            const taxStock = stockProceeds * 0.20315;
+
+            let deduction = 0;
+            if (tenure <= 20) {
+                deduction = Math.max(80, 40 * tenure);
+            } else {
+                deduction = 800 + 70 * (tenure - 20);
+            }
+            document.getElementById('lblDeduction').innerText = Math.round(deduction).toLocaleString();
+
+            const taxableRetirement = Math.max(0, (actualSeverance - deduction) * 0.5);
+            const taxRetirement = calcRetirementTax(taxableRetirement);
+
+            const taxOptimal = taxStock + taxRetirement;
+            const netOptimal = activeEquityValue - taxOptimal;
+            const diff = netOptimal - netSimple;
+            const effectiveRate = activeEquityValue > 0 ? (taxOptimal / activeEquityValue) * 100 : 0;
+
+            // 手取り表示更新
+            document.getElementById('resNetSimple').innerText = Math.round(netSimple).toLocaleString();
+            document.getElementById('resTaxSimple').innerText = Math.round(taxSimple).toLocaleString();
+            document.getElementById('resNetOptimal').innerText = Math.round(netOptimal).toLocaleString();
+            document.getElementById('resTaxOptimal').innerText = Math.round(taxOptimal).toLocaleString();
+            document.getElementById('resEffectiveTaxRate').innerText = effectiveRate.toFixed(1) + '%';
+
+            const diffEl = document.getElementById('resDiff');
+            const diffRound = Math.round(diff);
+            if (diffRound >= 0) {
+                diffEl.innerText = '+' + diffRound.toLocaleString();
+                diffEl.className = "text-lg md:text-xl font-extrabold text-rose-600 mx-1";
+            } else {
+                diffEl.innerText = diffRound.toLocaleString();
+                diffEl.className = "text-lg md:text-xl font-extrabold text-blue-600 mx-1";
+            }
+        }
+
+        // 初期実行
+        calculate();
+    </script>
+</body>
+</html>
