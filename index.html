@@ -50,7 +50,6 @@
         .input-field:focus {
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
-        /* Custom Range Slider */
         input[type=range] {
             -webkit-appearance: none;
             background: transparent;
@@ -87,7 +86,6 @@
 
     <!-- ヒーローヘッダー -->
     <header class="hero-pattern text-white pt-10 pb-20 px-4 relative overflow-hidden">
-        <!-- 装飾用背景エフェクト -->
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-500 opacity-10 blur-3xl pointer-events-none"></div>
         <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-amber-500 opacity-10 blur-3xl pointer-events-none"></div>
 
@@ -245,7 +243,6 @@
 
                 <!-- 1. 株価算定メインカード（タブ切替つき） -->
                 <div class="glass-card rounded-2xl p-6 md:p-7">
-                    <!-- 評価手法の切替タブ -->
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 mb-6">
                         <div>
                             <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider block">Valuation Method</span>
@@ -261,7 +258,6 @@
                         </div>
                     </div>
 
-                    <!-- メインの株価表示ボックス -->
                     <div class="bg-gradient-to-br from-navy-900 via-navy-800 to-slate-900 text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
                         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                             <div>
@@ -274,7 +270,6 @@
                                     <span id="resOkuText" class="text-xs text-slate-300 ml-1">（約 2.05 億円）</span>
                                 </div>
                             </div>
-                            <!-- もう一方の算定法での参考値 -->
                             <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-xl px-3.5 py-2 text-right">
                                 <span id="subMethodLabel" class="text-[11px] text-slate-300 block">参考：年買法での試算額</span>
                                 <span class="text-sm font-bold text-white"><span id="subMethodValue">24,500</span> 万円</span>
@@ -300,7 +295,7 @@
                             </div>
                         </div>
 
-                        <!-- 内訳ブリッジ（年買法用：初期非表示） -->
+                        <!-- 内訳ブリッジ（年買法用） -->
                         <div id="breakdownNenkai" class="hidden mt-6 pt-5 border-t border-white/10 grid grid-cols-2 gap-3 text-center">
                             <div class="bg-white/5 rounded-lg p-2.5">
                                 <span class="text-[11px] text-slate-400 block">① 時価純資産</span>
@@ -327,7 +322,6 @@
                     </div>
 
                     <div class="grid sm:grid-cols-2 gap-4">
-                        <!-- パターンA：単純な株式譲渡 -->
                         <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex flex-col justify-between">
                             <div>
                                 <div class="flex items-center justify-between">
@@ -346,7 +340,6 @@
                             </div>
                         </div>
 
-                        <!-- パターンB：株式譲渡＋役員退職金 -->
                         <div class="bg-gradient-to-br from-blue-50/90 to-indigo-50/50 rounded-xl p-4 border-2 border-blue-600 relative shadow-sm flex flex-col justify-between">
                             <span class="absolute -top-2.5 right-3 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">推奨スキーム</span>
                             <div>
@@ -366,7 +359,6 @@
                         </div>
                     </div>
 
-                    <!-- 節税インパクトのハイライトバー -->
                     <div class="mt-4 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border border-amber-300/80 rounded-xl p-3.5 flex flex-col sm:flex-row items-center justify-between gap-2">
                         <div class="flex items-center gap-2.5">
                             <span class="bg-amber-500 text-white rounded-full w-6 h-6 inline-flex items-center justify-center font-bold text-xs shrink-0">!</span>
@@ -383,22 +375,23 @@
                     <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
                     <div class="relative z-10">
                         <div class="flex items-center gap-2 mb-2">
-                            <span class="bg-amber-500 text-navy-950 text-[11px] font-extrabold px-2.5 py-0.5 rounded uppercase">Confidential Advisory</span>
-                            <span class="text-xs text-slate-400">秘密厳守・着手金完全無料</span>
+                            <span class="bg-amber-500 text-navy-950 text-[11px] font-extrabold px-2.5 py-0.5 rounded uppercase">Corporate Finance & Cashflow</span>
+                            <span class="text-xs text-slate-400">秘密厳守・オンライン無料査定</span>
                         </div>
                         <h3 class="text-lg md:text-xl font-extrabold tracking-tight text-white">
-                            「実際の買い手がつけるプレミアム価格」と「最適な節税設計」を診断しませんか？
+                            M&A前の「現預金プラス化・負債圧縮」や「つなぎ資金の即時確保」をお考えのオーナー様へ
                         </h3>
                         <p class="text-xs md:text-sm text-slate-300 mt-2 leading-relaxed">
-                            EV/EBITDA倍率は、買い手企業とのシナジーや業界の再編動向によって<strong>5倍から7倍・8倍へと跳ね上がるケース</strong>が多々あります。また、役員退職金の適正額（功績倍率）は税務リスクを避けるため専門家の事前設計が不可欠です。
+                            EV/EBITDA倍率法では、<strong>手元の売掛金（未回収の請求書）を早期に現金化して現預金を増やし、借入金を圧縮しておくこと</strong>でバランスシートの見栄えが向上します。また、M&A成約までの運転資金を借入（負債）を増やさずに確保したい場合、売掛金の即現金化（ファクタリング）が有効です。
                         </p>
 
-                        <!-- ★ここに高単価アフィリエイトリンクまたは自社フォームURLを設定★ -->
+                        <!-- ★A8.net アフィリエイトリンク＆計測タグ組み込み済み★ -->
                         <div class="mt-5">
-                            <a href="#affiliate-link-1" class="group w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-navy-950 font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-amber-500/20 flex items-center justify-between transition-all transform hover:-translate-y-0.5">
-                                <span class="text-sm md:text-base">無料で企業価値の詳細レポート・買い手候補リストを取り寄せる</span>
-                                <span class="bg-navy-950 text-amber-400 rounded-lg px-2.5 py-1 text-xs font-bold group-hover:translate-x-1 transition-transform">無料診断 &rarr;</span>
+                            <a href="https://px.a8.net/svt/ejp?a8mat=4BGAV1+8VPSMQ+4OCU+5YRHE" rel="nofollow" target="_blank" class="group w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-navy-950 font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-amber-500/20 flex items-center justify-between transition-all transform hover:-translate-y-0.5">
+                                <span class="text-sm md:text-base">売掛金を高値買取で即現金化（負債を増やさない資金調達・無料診断）</span>
+                                <span class="bg-navy-950 text-amber-400 rounded-lg px-2.5 py-1 text-xs font-bold group-hover:translate-x-1 transition-transform shrink-0 ml-2">無料査定 &rarr;</span>
                             </a>
+                            <img border="0" width="1" height="1" src="https://www13.a8.net/0.gif?a8mat=4BGAV1+8VPSMQ+4OCU+5YRHE" alt="" class="hidden">
                         </div>
                     </div>
                 </div>
@@ -406,7 +399,7 @@
             </div>
         </div>
 
-        <!-- SEO & 専門解説セクション（検索流入・信頼性担保） -->
+        <!-- SEO & 専門解説セクション -->
         <section class="mt-12 glass-card rounded-2xl p-6 md:p-8 text-sm text-slate-600 space-y-6">
             <div class="border-b border-slate-200 pb-3">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Valuation Methodology</span>
@@ -439,15 +432,54 @@
                 【免責事項】本シミュレーターはM&Aにおける一般的な算定モデル（EV/EBITDA倍率法・年買法）および日本の税制に基づく概算試算ツールです。株式の取得費（資本金）は便宜上0円と仮定しています。役員退職金の損金算入限度額（功績倍率法等）や個別の税務判断については、必ず公認会計士・税理士・M&Aアドバイザー等の専門家にご相談ください。
             </p>
         </section>
+
+        <!-- 審査対策＆SEO集客用：M&A実践コラムセクション -->
+        <section class="mt-8 glass-card rounded-2xl p-6 md:p-8 text-sm text-slate-600 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Executive Column</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-0.5">会社売却で「手取り額」を数千万円変える3つの実務知識</h2>
+            </div>
+
+            <div class="space-y-4">
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 p-4 cursor-pointer">
+                    <summary class="font-bold text-slate-900 flex justify-between items-center list-none">
+                        <span>Q1. 決算書が赤字や借入金過多でも、会社は売却できるのか？</span>
+                        <span class="text-blue-600 font-extrabold group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="mt-3 text-xs md:text-sm text-slate-600 leading-relaxed border-t border-slate-200 pt-3">
+                        結論から言えば、<strong>十分に売却可能です。</strong>中小企業の決算書は「税金を減らすため」に役員報酬を高めに設定したり、節税保険や交際費を計上して表面上の営業利益を圧縮しているケースが大半です。M&Aの株価算定では、これらオーナー固有の経費を足し戻した<strong>「正常収益力（実質EBITDA）」</strong>で評価するため、表面上は赤字でも実質黒字として数千万円〜数億円の企業価値がつく事例が数多く存在します。
+                    </p>
+                </details>
+
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 p-4 cursor-pointer">
+                    <summary class="font-bold text-slate-900 flex justify-between items-center list-none">
+                        <span>Q2. 役員退職金を使った節税スキームの「上限額（功績倍率）」とは？</span>
+                        <span class="text-blue-600 font-extrabold group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="mt-3 text-xs md:text-sm text-slate-600 leading-relaxed border-t border-slate-200 pt-3">
+                        役員退職金は手取りを増やす最強の手法ですが、無制限に支給すると税務署から「過大役員退職金」として否認されるリスクがあります。実務上は<strong>「最終報酬月額 × 役員在任年数 × 功績倍率（社長の場合は2.5〜3.0倍程度）」</strong>という功績倍率法を基準に上限を設計します。M&A実行の1年前から役員報酬月額を引き上げておくことで、合法的に退職金枠を拡大する事前対策も有効です。
+                    </p>
+                </details>
+
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 p-4 cursor-pointer">
+                    <summary class="font-bold text-slate-900 flex justify-between items-center list-none">
+                        <span>Q3. 売却前の「バランスシート（BS）スリム化」と「売掛金の早期資金化」が重要な理由</span>
+                        <span class="text-blue-600 font-extrabold group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <p class="mt-3 text-xs md:text-sm text-slate-600 leading-relaxed border-t border-slate-200 pt-3">
+                        EV/EBITDA倍率法では「現預金」が株価にプラスされ、「有利子負債（借入金）」はマイナスされます。M&A交渉に入る前に、未回収の売掛債権をファクタリング等で早期にキャッシュ化して借入金の返済や運転資金に充て、<strong>「負債を増やさずに手元流動性を高めておく」</strong>ことで、買い手企業の財務デューデリジェンス（買収監査）における評価を高めることができます。
+                    </p>
+                </details>
+            </div>
+        </section>
     </main>
 
     <footer class="border-t border-slate-200/80 bg-white py-6 text-center text-xs text-slate-400">
         &copy; 2026 M&A Valuation & Tax Simulator. All Rights Reserved.
     </footer>
 
-    <!-- 計算・UI制御スクリプト -->
     <script>
-        let currentMethod = 'ev'; // 'ev' or 'nenkai'
+        let currentMethod = 'ev';
 
         function setMethod(method) {
             currentMethod = method;
@@ -484,8 +516,8 @@
             else if (incomeTaxable <= 4000) incomeTax = incomeTaxable * 0.40 - 279.6;
             else incomeTax = incomeTaxable * 0.45 - 479.6;
 
-            const reconTax = incomeTax * 1.021; // 復興特別所得税
-            const resTax = incomeTaxable * 0.10; // 住民税10%
+            const reconTax = incomeTax * 1.021;
+            const resTax = incomeTaxable * 0.10;
             return reconTax + resTax;
         }
 
@@ -499,7 +531,6 @@
             const tenure = parseInt(document.getElementById('tenure').value) || 1;
             let severance = parseFloat(document.getElementById('severance').value) || 0;
 
-            // ラベル更新
             const ebitda = Math.max(0, opProfit + depreciation);
             document.getElementById('lblEbitda').innerText = Math.round(ebitda).toLocaleString();
             document.getElementById('lblMultiple').innerText = multiple.toFixed(1);
@@ -515,18 +546,14 @@
                 netDebtBadge.className = "text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200";
             }
 
-            // 1. EV/EBITDA倍率法による株式価値
             const ev = ebitda * multiple;
             const equityEvMethod = Math.max(0, ev + cash - debt);
 
-            // 2. 年買法による株式価値
             const goodwill = ebitda * multiple;
             const equityNenkaiMethod = Math.max(0, netAssets + goodwill);
 
-            // 選択されている手法をメイン値にセット
             const activeEquityValue = (currentMethod === 'ev') ? equityEvMethod : equityNenkaiMethod;
 
-            // 内訳の反映
             document.getElementById('valEv').innerText = Math.round(ev).toLocaleString();
             document.getElementById('valCash').innerText = Math.round(cash).toLocaleString();
             document.getElementById('valDebt').innerText = Math.round(debt).toLocaleString();
@@ -544,14 +571,11 @@
                 document.getElementById('subMethodValue').innerText = Math.round(equityEvMethod).toLocaleString();
             }
 
-            // 3. 税金・手取り計算
             const actualSeverance = Math.min(Math.max(0, severance), activeEquityValue);
 
-            // パターンA：単純株式譲渡
             const taxSimple = activeEquityValue * 0.20315;
             const netSimple = activeEquityValue - taxSimple;
 
-            // パターンB：株式譲渡＋役員退職金
             const stockProceeds = activeEquityValue - actualSeverance;
             const taxStock = stockProceeds * 0.20315;
 
@@ -571,7 +595,6 @@
             const diff = netOptimal - netSimple;
             const effectiveRate = activeEquityValue > 0 ? (taxOptimal / activeEquityValue) * 100 : 0;
 
-            // 手取り表示更新
             document.getElementById('resNetSimple').innerText = Math.round(netSimple).toLocaleString();
             document.getElementById('resTaxSimple').innerText = Math.round(taxSimple).toLocaleString();
             document.getElementById('resNetOptimal').innerText = Math.round(netOptimal).toLocaleString();
@@ -589,7 +612,6 @@
             }
         }
 
-        // 初期実行
         calculate();
     </script>
 </body>
