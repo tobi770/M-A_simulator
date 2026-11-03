@@ -1,1 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&A仲介手数料の罠｜大手仲介の「最低報酬2,000万円」で手取りが激減する理由と対策</title>
+    <meta name="description" content="中小企業のM&Aで多くの経営者が陥る「仲介手数料（レーマン方式・最低報酬）の罠」を元銀行員が解説。数千万円規模の売却で手取りを残すための手数料比較と最適な出口戦略。">
+    <meta property="og:title" content="M&A仲介手数料の罠｜大手仲介の「最低報酬2,000万円」で手取りが激減する理由と対策">
+    <meta property="og:description" content="中小企業M&Aの仲介手数料のリアルを暴く。大手仲介とプラットフォームの手数料比較から手取り最大化の手順まで完全解説。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ma-simulator.com/fee-trap.html">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-dark: #1e293b;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --accent-gold: #fbbf24;
+            --accent-blue: #38bdf8;
+            --accent-red: #f87171;
+            --border-color: #334155;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding: 20px;
+        }
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .tag {
+            background-color: rgba(251, 191, 36, 0.1);
+            color: var(--accent-gold);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 16px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+        h1 {
+            font-size: 1.85rem;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+        h2 {
+            font-size: 1.4rem;
+            margin: 40px 0 16px;
+            padding-left: 12px;
+            border-left: 4px solid var(--accent-gold);
+            color: #ffffff;
+        }
+        h3 {
+            font-size: 1.15rem;
+            margin: 24px 0 12px;
+            color: var(--accent-blue);
+        }
+        p {
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+        .card {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+        .alert-box {
+            background-color: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        .alert-box strong {
+            color: var(--accent-red);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--accent-gold);
+        }
+        .highlight {
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+        .cta-box {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 2px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            margin: 48px 0;
+            box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.15);
+        }
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--accent-gold);
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 16px 36px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .cta-btn:hover {
+            background-color: #f59e0b;
+            transform: translateY(-2px);
+        }
+        .nav-links {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .nav-links a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 32px 0 16px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <header>
+        <a href="index.html">← M&Aシミュレータートップ</a>
+    </header>
+
+    <main>
+        <span class="tag">出口戦略・コスト削減</span>
+        <h1>M&A仲介手数料の罠｜大手仲介の「最低報酬2,000万円」で手取りが吹き飛ぶカラクリ</h1>
+
+        <p>「会社が5,000万円で売却できたのに、手元に残ったお金が雀の涙だった……」</p>
+        <p>中小企業M&Aの現場で、契約成立後に頭を抱える経営者が後を絶ちません。その最大の原因が、大手M&A仲介会社が設定している<strong>「最低報酬（ミニマムフィー）」と「レーマン方式の算定ベース」の罠</strong>です。</p>
+
+        <div class="alert-box">
+            <strong>元銀行員・M&A実務家の警告：</strong><br>
+            売却価格が1億〜2億円未満のスモールM&Aにおいて、大手仲介会社にそのまま依頼すると、<strong>売却益の20%〜40%以上を手数料として中抜きされる</strong>危険性があります。
+        </div>
+
+        <h2>1. 「レーマン方式5%」の裏にある最低報酬（ミニマムフィー）</h2>
+        <p>多くの仲介会社は手数料の安さをアピールするために「手数料は売却金額の5%〜（レーマン方式）」と説明します。しかし、契約書の隅に必ず小さく記載されているのが以下の条項です。</p>
+
+        <div class="card">
+            <h3>大手仲介会社の最低報酬目安</h3>
+            <p style="margin-bottom: 8px;">・大手専業仲介（上場系）：<strong>1,000万〜2,500万円（税抜）</strong></p>
+            <p style="margin-bottom: 8px;">・中堅仲介・地銀紹介系：<strong>500万〜1,000万円（税抜）</strong></p>
+            <p>※仮に計算上の5%が250万円だったとしても、<strong>一律で上記の最低報酬額が請求されます。</strong></p>
+        </div>
+
+        <h3>【試算例】売却価格5,000万円の会社を売却した場合</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>大手仲介（最低報酬2,000万）</th>
+                    <th>適正プラットフォーム（バトンズ等）</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>売却対価</td>
+                    <td>5,000万円</td>
+                    <td>5,000万円</td>
+                </tr>
+                <tr>
+                    <td>仲介手数料</td>
+                    <td class="highlight" style="color: var(--accent-red);">-2,200万円（税込）</td>
+                    <td class="highlight">-220万円〜（税込）</td>
+                </tr>
+                <tr>
+                    <td>譲渡所得税等（約20%）</td>
+                    <td>約560万円</td>
+                    <td>約950万円</td>
+                </tr>
+                <tr>
+                    <td><strong>オーナーの手残り現金</strong></td>
+                    <td style="color: var(--accent-red); font-weight: bold;">約2,240万円（44%減）</td>
+                    <td class="highlight" style="font-size: 1.1rem;">約3,830万円（手取り+1,590万円）</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>同じ会社を同じ価格で売ったとしても、仲介ルートの選び方を誤るだけで<strong>1,500万円以上の創業者利益が消滅</strong>します。</p>
+
+        <h2>2. 罠その2：「株価」ではなく「移動総資産」ベースの請求</h2>
+        <p>レーマン方式には「株式価格ベース」と「移動総資産ベース」の2種類があります。</p>
+        <p>例えば「株式価値3,000万円、負債（銀行借入）7,000万円」の会社の場合、移動総資産ベースを採用する仲介会社は<strong>合算した1億円に対して手数料を計算</strong>します。オーナーの手取りは3,000万円しかないのに、1億円分の手数料を支払わされるケースがあるため、媒介契約書を結ぶ前の確認が必須です。</p>
+
+        <h2>3. 中小企業オーナーが手取りを最大化する3大対策</h2>
+        <div class="card">
+            <h3>① 仲介会社ではなく「マッチングプラットフォーム」を活用する</h3>
+            <p>売却規模が数千万円〜2億円程度であれば、仲介営業マンを挟まない「Batonz（バトンズ）」などのオンライン事業承継プラットフォームを利用することで、仲介手数料を数十万円〜数パーセントに圧縮できます。</p>
+
+            <h3>② 「役員退職金」を組み込んで税率を20%から激減させる</h3>
+            <p>売却対価をすべて株式譲渡で受け取らず、一部を役員退職金として支給することで、退職所得控除と1/2課税を活用して手取り現金を数百万〜数千万円上乗せします。</p>
+
+            <h3>③ 媒介契約書にサインする前に「自社の市場相場」を把握する</h3>
+            <p>相手の言い値で専任媒介契約を結ぶと、半年間他社へ乗り換えられなくなります。事前に客観的な企業価値（EV/EBITDA倍率）を算定しておきましょう。</p>
+        </div>
+
+        <div class="cta-box">
+            <h2 style="border: none; padding: 0; margin: 0 0 12px; color: var(--accent-gold);">自社の手取り額・節税シミュレーション</h2>
+            <p>「うちの会社はいくらで売れて、税金や手数料を引いた手残りはいくらになるのか？」<br>30秒・登録不要で試算できる無料ツールを公開しています。</p>
+            <a href="index.html" class="cta-btn">無料で手取り額を試算する →</a>
+        </div>
+    </main>
+
+    <div class="nav-links">
+        <a href="index.html">・M&A・手取りシミュレータートップ</a>
+        <a href="debt-deficit.html">・赤字・債務超過企業のM&A算定と売却可能性</a>
+        <a href="retirement-tax.html">・役員退職金スキームによる税金圧縮シミュレーション</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ma-simulator.com All Rights Reserved.</p>
+    </footer>
+</div>
+
+</body>
+</html>
