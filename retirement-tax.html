@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M&Aの役員退職金で手取りを最大化する節税スキームと功績倍率の上限計算 | M&A Valuation Simulator</title>
+    <meta name="description" content="中小企業オーナー必見。M&A実行時に役員退職金を支給して譲渡所得税を大幅に圧縮する節税スキームの仕組み、退職所得控除の計算、税務署に否認されないための「功績倍率」の上限ラインを専門解説。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                        gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8fafc; color: #0f172a; }
+        .hero-pattern { background: radial-gradient(circle at 20% 20%, #1e3a8a 0%, #0f172a 55%, #020617 100%); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500 selection:text-white">
+
+    <!-- ナビゲーションバー -->
+    <nav class="bg-navy-950 text-white border-b border-white/10 px-4 py-3 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <a href="./index.html" class="font-extrabold text-sm md:text-base tracking-tight flex items-center gap-2 hover:text-amber-400 transition-colors">
+                <span class="bg-amber-500 text-navy-950 text-xs font-black px-2 py-0.5 rounded">M&A</span>
+                企業価値・手取り額シミュレーター
+            </a>
+            <a href="./index.html" class="text-xs font-bold bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition-colors">
+                &larr; シミュレーターへ戻る
+            </a>
+        </div>
+    </nav>
+
+    <!-- 記事ヘッダー -->
+    <header class="hero-pattern text-white pt-10 pb-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 px-3 py-1 rounded-full text-xs font-bold text-amber-300 mb-4">
+                税務・手取り最大化 専門解説コラム
+            </div>
+            <h1 class="text-2xl md:text-3xl font-extrabold leading-snug tracking-tight">
+                M&Aの役員退職金で手取りを最大化する節税スキームと<br class="hidden md:inline">「功績倍率」の上限計算のリアル
+            </h1>
+            <p class="text-xs md:text-sm text-slate-300 mt-4 leading-relaxed">
+                会社売却で得た利益をそのまま「株式譲渡対価」として受け取ると、一律20.315%の税金が課されます。しかし、M&Aの最終契約に合わせて「役員退職金」を巧みに組み合わせることで、税負担を劇的に軽減し、オーナーの手元に残る最終手取り額を数百万円〜数千万円増やすことが可能です。
+            </p>
+        </div>
+    </header>
+
+    <!-- メイン記事エリア -->
+    <main class="max-w-4xl mx-auto px-4 -mt-8 pb-20 space-y-8 relative z-10">
+
+        <!-- セクション1：なぜ退職金を使うと手取りが増えるのか -->
+        <article class="glass-card rounded-2xl p-6 md:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Point 01</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">なぜ「役員退職金」を組み合わせると、株式譲渡単体より手取りが増えるのか？</h2>
+            </div>
+
+            <p class="text-sm text-slate-600 leading-relaxed">
+                株式譲渡益に対する税金は、分離課税として一律 <strong>20.315%（所得税15.315%・住民税5%）</strong> です。一方、役員退職金は「退職所得」として扱われ、以下の強力な税制優遇（控除と1/2課税）が適用されます。
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-900 text-xs md:text-sm mb-1">① 退職所得控除（非課税枠）</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        勤続年数に応じて非課税枠が拡大します。<br>
+                        ・<strong>20年以下</strong>：1年につき <strong>40万円</strong><br>
+                        ・<strong>20年超</strong>：800万円 ＋ 1年につき <strong>70万円</strong>
+                    </p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-900 text-xs md:text-sm mb-1">② 1/2課税（分離課税の半額に）</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        退職所得控除を引いた残りの金額に <strong>1/2を掛けた金額</strong> のみに所得税・住民税がかかるため、累進課税であっても税率が非常に低く抑えられます。
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-sm text-slate-600 leading-relaxed">
+                この仕組みを利用して、買収企業から支払われる総額の一部を「役員退職金」として会社からオーナーへ支給し、その分だけ株式譲渡価格を減額するスキームを組むことで、全体の納税額を最小化できます。実際の金額がどれくらい変わるのかは、トップページのシミュレーターで瞬時に試算できます。
+            </p>
+
+            <div class="pt-2">
+                <a href="./index.html" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs md:text-sm px-5 py-3 rounded-xl shadow transition-all">
+                    <span>自社の退職金スキーム効果をシミュレーターで試算する</span>
+                    <span>&rarr;</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- セクション2：功績倍率の上限と税務否認リスク -->
+        <article class="glass-card rounded-2xl p-6 md:p-8 space-y-5">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Point 02</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">税務署に否認されないための「功績倍率」の適正ラインとは？</h2>
+            </div>
+
+            <p class="text-sm text-slate-600 leading-relaxed">
+                「手取りを増やしたいから」といって、会社の現預金をすべて退職金として自分に支払うと、税務署から<strong>「過大役員退職金」</strong>として損金算入を否認されたり、思わぬ追徴課税を受けるリスクがあります。
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+                実務上、適正な退職金額の上限を算定する基準として最も広く使われているのが<strong>「功績倍率法（最終報酬月額 × 役員在任年数 × 功績倍率）」</strong>です。同族会社や創業者社長の場合、一般的には以下の倍率が上限の目安とされています。
+            </p>
+
+            <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-5 text-xs md:text-sm text-slate-700 space-y-3">
+                <p class="font-extrabold text-blue-950">📌 実務上の功績倍率の目安</p>
+                <ul class="space-y-1.5 text-slate-700">
+                    <li>・<strong>創業者・代表取締役社長</strong>：<strong>2.5倍 〜 3.0倍</strong> 程度</li>
+                    <li>・<strong>取締役（創業者以外・一般役員）</strong>：1.5倍 〜 2.0倍 程度</li>
+                </ul>
+                <p class="text-[11px] text-slate-500 pt-1">
+                    ※過去の同業類似法人の判例や国税の動向に基づき、社内の退職慰労金規程を事前に整備しておくことが絶対条件となります。
+                </p>
+            </div>
+        </article>
+
+        <!-- セクション3：M&A前の事前対策と専門家相談の重要性 -->
+        <article class="glass-card rounded-2xl p-6 md:p-8 space-y-5">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Point 03</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">M&A実行の1年前から準備すべき「役員報酬の引き上げ」戦略</h2>
+            </div>
+
+            <p class="text-sm text-slate-600 leading-relaxed">
+                功績倍率法の計算式（最終報酬月額 × 在任年数 × 倍率）を見ると分かる通り、退職金の総額を大きくするカギは<strong>「最終の月額報酬をいくらに設定していたか」</strong>です。
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+                もし直前の月額報酬が極端に低いと、在任年数が長くても退職金枠が小さくなってしまいます。そのため、M&Aを本格検討する1〜2年前から、業績の推移に合わせて計画的に役員報酬を適正水準まで引き上げておく（定期同額給与の改定ルールに則る）ことが、手取り最大化を成功させる極意となります。
+            </p>
+        </article>
+
+        <!-- シミュレーターへの帰還バナー -->
+        <div class="glass-card rounded-2xl p-6 text-center space-y-3 bg-gradient-to-r from-slate-900 to-navy-900 text-white">
+            <h3 class="text-base md:text-lg font-extrabold">在任年数と退職金支給額を入力して、手取りの増加額を今すぐ確認</h3>
+            <p class="text-xs text-slate-300">完全無料・登録不要。単純な株式譲渡と退職金併用スキームの差額を秒速で算出します。</p>
+            <div class="pt-2">
+                <a href="./index.html" class="inline-block bg-white text-navy-950 hover:bg-amber-400 font-extrabold text-sm px-6 py-3 rounded-xl shadow transition-colors">
+                    シミュレーターに戻って試算する（無料） &rarr;
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-200/80 bg-white py-6 text-center text-xs text-slate-400">
+        &copy; 2026 M&A Valuation & Tax Simulator. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
