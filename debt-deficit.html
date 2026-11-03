@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赤字・借入金過多でも会社は売却できる？経営者保証の解除とM&A前のBS改善策 | M&A Valuation Simulator</title>
+    <meta name="description" content="「決算が赤字」「銀行借入が多い」「社長の個人保証（連帯保証）を外したい」という中小企業オーナー向けに、M&Aでの売却可能性（実質EBITDA評価）と売却前の資金繰り・バランスシート改善手法を解説。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                        gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8fafc; color: #0f172a; }
+        .hero-pattern { background: radial-gradient(circle at 20% 20%, #1e3a8a 0%, #0f172a 55%, #020617 100%); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500 selection:text-white">
+
+    <!-- ナビゲーションバー -->
+    <nav class="bg-navy-950 text-white border-b border-white/10 px-4 py-3 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <a href="./index.html" class="font-extrabold text-sm md:text-base tracking-tight flex items-center gap-2 hover:text-amber-400 transition-colors">
+                <span class="bg-amber-500 text-navy-950 text-xs font-black px-2 py-0.5 rounded">M&A</span>
+                企業価値・手取り額シミュレーター
+            </a>
+            <a href="./index.html" class="text-xs font-bold bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition-colors">
+                &larr; シミュレーターへ戻る
+            </a>
+        </div>
+    </nav>
+
+    <!-- 記事ヘッダー -->
+    <header class="hero-pattern text-white pt-10 pb-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/30 px-3 py-1 rounded-full text-xs font-bold text-amber-300 mb-4">
+                財務・事業承継 専門解説コラム
+            </div>
+            <h1 class="text-2xl md:text-3xl font-extrabold leading-snug tracking-tight">
+                「決算が赤字・借入金が多い」会社でもM&Aで売却できるのか？<br class="hidden md:inline">経営者保証（連帯保証）の解除と売却前のBS改善策
+            </h1>
+            <p class="text-xs md:text-sm text-slate-300 mt-4 leading-relaxed">
+                「うちは銀行借入が多いから売れない」「前期が赤字だから価値がない」と諦めて廃業を選んでしまうオーナー経営者は少なくありません。しかし、M&A実務における企業評価のモノサシは、銀行融資や税務会計とは全く異なります。
+            </p>
+        </div>
+    </header>
+
+    <!-- メイン記事エリア -->
+    <main class="max-w-4xl mx-auto px-4 -mt-8 pb-20 space-y-8 relative z-10">
+
+        <!-- セクション1：実質EBITDAの解説 -->
+        <article class="glass-card rounded-2xl p-6 md:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Point 01</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">表面上の「赤字」は関係ない？買い手が見る「正常収益力（実質EBITDA）」とは</h2>
+            </div>
+
+            <p class="text-sm text-slate-600 leading-relaxed">
+                中小企業の決算書（損益計算書）は、法人税を抑えるために「節税対策」が施されているケースが大半です。買い手企業やM&Aアドバイザーは、決算書の表面上の営業利益ではなく、<strong>オーナー固有の個人的経費や一時的な費用を足し戻した「正常収益力（実質EBITDA）」</strong>で会社の稼ぐ力を評価します。
+            </p>
+
+            <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                <h3 class="text-sm font-bold text-slate-900 mb-3">【具体例】表面上は赤字300万円でも、実質EBITDAが2,500万円になるケース</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs md:text-sm">
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="py-2.5 font-semibold text-slate-600">決算書上の営業損益</td>
+                                <td class="py-2.5 text-right font-bold text-rose-600">▲ 300 万円（赤字）</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 font-semibold text-slate-600">＋ 減価償却費（キャッシュアウトしない費用）</td>
+                                <td class="py-2.5 text-right font-bold text-slate-800">+ 600 万円</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 font-semibold text-slate-600">＋ オーナー役員報酬の過大分（M&A後に削減される分）</td>
+                                <td class="py-2.5 text-right font-bold text-emerald-600">+ 1,200 万円</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2.5 font-semibold text-slate-600">＋ 経営者向けの節税保険・私的な交際費・車両費等</td>
+                                <td class="py-2.5 text-right font-bold text-emerald-600">+ 1,000 万円</td>
+                            </tr>
+                            <tr class="bg-blue-50/80">
+                                <td class="py-3 px-2 font-extrabold text-blue-950">＝ M&Aで評価される「実質EBITDA（正常収益力）」</td>
+                                <td class="py-3 px-2 text-right font-extrabold text-blue-700 text-base">+ 2,500 万円（黒字評価）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <p class="text-sm text-slate-600 leading-relaxed">
+                このように、実質EBITDAが2,500万円と算定されれば、業界標準のマルチプル（例えば4倍）を掛けることで、<strong>事業価値（EV）として1億円の評価</strong>がつきます。まずはご自身の会社の「実質EBITDA」でいくらの株価がつくのか、シミュレーターで試算してみることが第一歩です。
+            </p>
+
+            <div class="pt-2">
+                <a href="./index.html" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs md:text-sm px-5 py-3 rounded-xl shadow transition-all">
+                    <span>実質EBITDAで自社の株価・手取り額を30秒試算する</span>
+                    <span>&rarr;</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- セクション2：借入金と個人保証の解除 -->
+        <article class="glass-card rounded-2xl p-6 md:p-8 space-y-5">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Point 02</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">銀行借入（有利子負債）と社長の「個人保証（連帯保証）」はどうなる？</h2>
+            </div>
+
+            <p class="text-sm text-slate-600 leading-relaxed">
+                株式譲渡によって会社を売却する場合、<strong>会社の借入金（銀行融資など）はそのまま買い手企業へ引き継がれます。</strong>オーナー社長が個人の財布から借金を完済する必要はありません（株価の算定上、事業価値EVから借入金相当額が差し引かれて株価が決まる仕組みです）。
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+                さらに、オーナー経営者にとって最大のメリットとなるのが<strong>「経営者保証（個人の連帯保証）および個人担保の解除」</strong>です。M&Aの最終契約（クロージング）と同時に、買い手企業が金融機関と交渉して保証人を書き換えるか、買い手グループの資金で借り換えを行うため、<strong>オーナーは借金の連帯保証から完全に解放され、手元に残った譲渡対価（キャッシュ）を100%安全な個人資産として確保</strong>できます。
+            </p>
+        </article>
+
+        <!-- セクション3：売却前のBS改善とファクタリング導線（高成約コンバージョン） -->
+        <article class="glass-card rounded-2xl p-6 md:p-8 space-y-5 border-2 border-amber-400">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Point 03 / Cashflow Strategy</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-1">売却交渉を有利に進める「売掛金の早期現金化（オフバランス化）」とは？</h2>
+            </div>
+
+            <p class="text-sm text-slate-600 leading-relaxed">
+                M&Aの交渉期間（通常3ヶ月〜半年）において最も注意すべきなのが<strong>「交渉中の資金ショート」と「バランスシート（貸借対照表）の悪化」</strong>です。売却前に慌てて新たな銀行借入（有利子負債）を増やしてしまうと、EV/EBITDA倍率法の計算式（株価値 ＝ EV ＋ 現預金 － 有利子負債）において有利子負債が増加し、買い手からの印象が悪化する要因になります。
+            </p>
+
+            <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-4 text-xs md:text-sm text-slate-700 space-y-2">
+                <p class="font-bold text-slate-900">💡 経営者がM&A前後に活用している「負債を増やさない資金繰り対策」</p>
+                <p class="leading-relaxed">
+                    手元にある「売掛金（入金待ちの請求書）」をファクタリング等で早期に現金化（オフバランス化）することで、<strong>借入金（負債）を一切増やさずに手元の現預金を厚くする</strong>ことが可能です。これにより、M&A成約までの運転資金・納税資金を安全に確保しながら、バランスシートの見栄えをスリムに保つことができます。
+                </p>
+            </div>
+
+            <!-- コンバージョンボックス（A8ファクタリング案件） -->
+            <div class="bg-navy-950 text-white rounded-2xl p-6 shadow-xl mt-6">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-amber-500 text-navy-950 text-[11px] font-extrabold px-2.5 py-0.5 rounded uppercase">Free Assessment</span>
+                    <span class="text-xs text-slate-400">秘密厳守・オンライン完結・最短即日</span>
+                </div>
+                <h3 class="text-base md:text-lg font-extrabold text-white">
+                    借入（負債）を増やさずに手元キャッシュを即座に確保する
+                </h3>
+                <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                    取引先に知られることなく（2社間取引対応）、保有している売掛債権を最短即日で高値現金化。M&A前の財務改善や、つなぎ資金・運転資金の確保にご活用いただけます。
+                </p>
+                <div class="mt-5">
+                    <a href="https://px.a8.net/svt/ejp?a8mat=4BGAV1+8VPSMQ+4OCU+5YRHE" rel="nofollow" target="_blank" class="group w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-navy-950 font-extrabold py-4 px-6 rounded-xl shadow-lg shadow-amber-500/20 flex items-center justify-between transition-all transform hover:-translate-y-0.5">
+                        <span class="text-sm md:text-base">売掛金を高値買取で即現金化（無料オンライン査定はこちら）</span>
+                        <span class="bg-navy-950 text-amber-400 rounded-lg px-2.5 py-1 text-xs font-bold group-hover:translate-x-1 transition-transform shrink-0 ml-2">無料診断 &rarr;</span>
+                    </a>
+                    <img border="0" width="1" height="1" src="https://www13.a8.net/0.gif?a8mat=4BGAV1+8VPSMQ+4OCU+5YRHE" alt="" class="hidden">
+                </div>
+            </div>
+        </article>
+
+        <!-- シミュレーターへの帰還バナー -->
+        <div class="glass-card rounded-2xl p-6 text-center space-y-3 bg-gradient-to-r from-slate-900 to-navy-900 text-white">
+            <h3 class="text-base md:text-lg font-extrabold">あなたの会社の「実質株価」と「税金控除後の手取り額」を計算してみませんか？</h3>
+            <p class="text-xs text-slate-300">登録不要・完全無料で、EV/EBITDA倍率法と役員退職金スキームを瞬時に比較できます。</p>
+            <div class="pt-2">
+                <a href="./index.html" class="inline-block bg-white text-navy-950 hover:bg-amber-400 font-extrabold text-sm px-6 py-3 rounded-xl shadow transition-colors">
+                    企業価値・手取り額シミュレーターを使う（無料） &rarr;
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-200/80 bg-white py-6 text-center text-xs text-slate-400">
+        &copy; 2026 M&A Valuation & Tax Simulator. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
