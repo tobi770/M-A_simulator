@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Search Console 所有権確認タグ -->
+    <meta name="google-site-verification" content="Jn_PSiC-s76rBrH-nXHa18-2xtZ6uMsR_LyzkD3wCTU" />
     <title>M&A Valuation & Tax Simulator | 企業価値・手取り額シミュレーター</title>
     <meta name="description" content="M&A実務で標準的な「EV/EBITDA倍率法」および「年買法」に対応。想定株価（株式価値）の算定から、役員退職金を活用したオーナー手取り額の最大化シミュレーションまで30秒で試算。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -399,8 +401,88 @@
             </div>
         </div>
 
-        <!-- SEO & 専門解説セクション -->
+        <!-- 追加1：業種別 EV/EBITDAマルチプル相場早見表（SEO＆滞在時間強化） -->
         <section class="mt-12 glass-card rounded-2xl p-6 md:p-8 text-sm text-slate-600 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Industry Multiples</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-0.5">中小企業M&Aにおける「業種別 EV/EBITDA倍率」の相場目安</h2>
+            </div>
+            <p class="text-xs md:text-sm leading-relaxed">
+                株価算定で用いる評価倍率（マルチプル）は、業種の成長性、利益率、人材や許認可の希少性によって変動します。中小企業のM&A実務では概ね<strong>3.0倍〜6.0倍</strong>のレンジに収まるケースが多く見られます。
+            </p>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs md:text-sm">
+                    <thead>
+                        <tr class="bg-slate-900 text-white">
+                            <th class="p-3 rounded-tl-lg font-bold">業種・セクター</th>
+                            <th class="p-3 font-bold">EV/EBITDA倍率の目安</th>
+                            <th class="p-3 rounded-tr-lg font-bold">高値（プレミアム）がつく評価ポイント</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold text-slate-900">IT・ソフトウェア・SaaS</td>
+                            <td class="p-3 font-extrabold text-blue-600">5.0倍 〜 8.0倍+</td>
+                            <td class="p-3">ストック収益（月額課金）比率の高さ、エンジニアの定着率</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <td class="p-3 font-bold text-slate-900">医療・調剤薬局・介護</td>
+                            <td class="p-3 font-extrabold text-blue-600">4.0倍 〜 6.5倍</td>
+                            <td class="p-3">立地の良さ、有資格者（薬剤師・看護師等）の確保、地域ドミナント</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-900">製造業・精密加工</td>
+                            <td class="p-3 font-extrabold text-blue-600">3.5倍 〜 5.5倍</td>
+                            <td class="p-3">独自の技術・特許、大手メーカーとの直接口座、設備の維持状態</td>
+                        </tr>
+                        <tr class="bg-slate-50/60">
+                            <td class="p-3 font-bold text-slate-900">建設・設備工事・物流</td>
+                            <td class="p-3 font-extrabold text-blue-600">3.0倍 〜 4.5倍</td>
+                            <td class="p-3">施工管理技士・ドライバー等の人材確保、元請け比率の高さ</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-900">飲食・小売・サービス</td>
+                            <td class="p-3 font-extrabold text-blue-600">2.5倍 〜 4.0倍</td>
+                            <td class="p-3">好立地物件の賃借権、ブランド力、複数店舗展開の再現性</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 追加2：仲介会社 vs M&Aプラットフォームの手数料比較（バトンズ等の審査対策＆誘導布石） -->
+        <section class="mt-8 glass-card rounded-2xl p-6 md:p-8 text-sm text-slate-600 space-y-6">
+            <div class="border-b border-slate-200 pb-3">
+                <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">Advisory Fee Comparison</span>
+                <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-0.5">M&Aの手数料で「手取り額」が数千万円変わる？相談先の選び方</h2>
+            </div>
+            <p class="text-xs md:text-sm leading-relaxed">
+                オーナーの手取り額を最大化するには、税金（役員退職金スキーム）だけでなく<strong>「M&Aの成約手数料（成功報酬）をいかに抑えるか」</strong>が極めて重要です。専任アドバイザーがつく従来型のM&A仲介会社と、近年主流となっているオンラインM&Aプラットフォーム（バトンズ等）では、最低報酬額に大きな差があります。
+            </p>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-slate-500 block">従来型のM&A仲介会社</span>
+                    <h3 class="text-base font-extrabold text-slate-900 mt-1">中〜大規模案件向け（フルサポート）</h3>
+                    <ul class="mt-3 space-y-2 text-xs md:text-sm">
+                        <li>・<strong>最低報酬額</strong>：1,000万円 〜 2,500万円程度</li>
+                        <li>・<strong>メリット</strong>：専任担当者が企業概要書（IM）作成から交渉まで一貫代行</li>
+                        <li>・<strong>注意点</strong>：譲渡額が1億円以下の場合、手数料比率が高くなり手取りが大きく減るケースがある</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50/70 p-5 rounded-xl border-2 border-blue-600">
+                    <span class="text-xs font-bold text-blue-700 block">M&Aプラットフォーム（マッチングサイト）</span>
+                    <h3 class="text-base font-extrabold text-blue-950 mt-1">小〜中規模案件で「手取り最大化」に有利</h3>
+                    <ul class="mt-3 space-y-2 text-xs md:text-sm text-slate-700">
+                        <li>・<strong>売り手手数料</strong>：<strong class="text-rose-600">原則 無料 〜 数十万円程度</strong>（成約時のみ等）</li>
+                        <li>・<strong>メリット</strong>：全国の買い手企業（数万社）から直接オファーが届き、オークション効果で売却額が上がりやすい</li>
+                        <li>・<strong>活用法</strong>：まずプラットフォームに無料登録して相場と買い手候補を確認するのが定石</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO & 専門解説セクション -->
+        <section class="mt-8 glass-card rounded-2xl p-6 md:p-8 text-sm text-slate-600 space-y-6">
             <div class="border-b border-slate-200 pb-3">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Valuation Methodology</span>
                 <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-0.5">なぜM&A実務では「EV/EBITDA倍率法」が最も使われるのか？</h2>
